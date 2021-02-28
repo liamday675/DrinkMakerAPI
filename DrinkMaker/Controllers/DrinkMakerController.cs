@@ -38,9 +38,9 @@ namespace DrinkMaker.Controllers
                     break;
 
                 default:
+                    // empty list
+                    actions = new List<String>();
                     break;
-                    //return JSon(Newtonsoft.Json.JsonSerializer())
-
 
             }
 
