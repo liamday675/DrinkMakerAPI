@@ -13,6 +13,7 @@ namespace DrinkMaker
 {
     public class Startup
     {
+        readonly string AllowedOrigins = "AllowedOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +24,15 @@ namespace DrinkMaker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowedOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200");
+                                  });
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -43,6 +53,8 @@ namespace DrinkMaker
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(AllowedOrigins);
 
             app.UseAuthorization();
 
